@@ -1,0 +1,126 @@
+// Artık prependData sayesinde otomatik import ediliyor
+// Ama açık olması için bırakabiliriz
+
+.hero {
+  background: linear-gradient(135deg, $primary-color 0%, #7c3aed 100%);
+  color: white;
+  padding: $spacing-2xl * 3 0;
+  text-align: center;
+
+  .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: $spacing-lg;
+    color: white;
+
+    @include md {
+      font-size: 4rem;
+    }
+  }
+
+  p {
+    font-size: 1.25rem;
+    margin-bottom: $spacing-2xl;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .btn {
+      padding: $spacing-lg $spacing-2xl;
+      font-size: 1.125rem;
+      border-radius: $radius-lg;
+      box-shadow: $shadow-lg;
+
+      &.btn-white {
+        background-color: white;
+        color: $primary-color;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: $shadow-xl;
+        }
+      }
+
+      &.btn-outline-white {
+        background-color: transparent;
+        border: 2px solid white;
+        color: white;
+
+        &:hover {
+          background-color: white;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+
+.features {
+  padding: $spacing-2xl * 3 0;
+  background-color: white;
+
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: $spacing-2xl;
+    color: $text-primary;
+  }
+
+  .features-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+    display: grid;
+    gap: $spacing-xl;
+    grid-template-columns: 1fr;
+
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .feature-card {
+    padding: $spacing-xl;
+    border: 1px solid $border-light;
+    border-radius: $radius-xl;
+    transition: all $transition-base;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: $shadow-lg;
+      border-color: $primary-color;
+    }
+
+    .icon {
+      font-size: 2.5rem;
+      margin-bottom: $spacing-md;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: $spacing-md;
+      color: $text-primary;
+    }
+
+    p {
+      color: $text-secondary;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+  }
+}

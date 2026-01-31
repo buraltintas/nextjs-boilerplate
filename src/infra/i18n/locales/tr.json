@@ -1,0 +1,88 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "success": "Başarılı",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "close": "Kapat",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "clear": "Temizle",
+    "submit": "Gönder",
+    "back": "Geri",
+    "next": "İleri",
+    "previous": "Önceki",
+    "showMore": "Daha Fazla Göster",
+    "showLess": "Daha Az Göster"
+  },
+  
+  "auth": {
+    "login": "Giriş Yap",
+    "logout": "Çıkış Yap",
+    "register": "Kayıt Ol",
+    "email": "E-posta",
+    "password": "Şifre",
+    "forgotPassword": "Şifremi Unuttum",
+    "resetPassword": "Şifreyi Sıfırla",
+    "confirmPassword": "Şifreyi Onayla",
+    "rememberMe": "Beni Hatırla",
+    "loginSuccess": "Giriş başarılı",
+    "loginError": "Giriş başarısız",
+    "logoutSuccess": "Çıkış yapıldı",
+    "registerSuccess": "Kayıt başarılı",
+    "invalidCredentials": "Geçersiz e-posta veya şifre",
+    "sessionExpired": "Oturumunuzun süresi doldu",
+    "unauthorized": "Bu sayfayı görüntüleme yetkiniz yok"
+  },
+  
+  "navigation": {
+    "home": "Ana Sayfa",
+    "dashboard": "Panel",
+    "profile": "Profil",
+    "settings": "Ayarlar",
+    "users": "Kullanıcılar",
+    "about": "Hakkında",
+    "contact": "İletişim"
+  },
+  
+  "validation": {
+    "required": "Bu alan zorunludur",
+    "email": "Geçerli bir e-posta adresi giriniz",
+    "minLength": "En az {min} karakter olmalıdır",
+    "maxLength": "En fazla {max} karakter olmalıdır",
+    "passwordMismatch": "Şifreler eşleşmiyor",
+    "invalidFormat": "Geçersiz format"
+  },
+  
+  "errors": {
+    "pageNotFound": "Sayfa Bulunamadı",
+    "somethingWentWrong": "Bir şeyler yanlış gitti",
+    "tryAgain": "Tekrar Deneyin",
+    "backToHome": "Ana Sayfaya Dön",
+    "networkError": "Ağ hatası oluştu",
+    "serverError": "Sunucu hatası"
+  },
+  
+  "user": {
+    "profile": "Profil",
+    "name": "Ad Soyad",
+    "bio": "Biyografi",
+    "avatar": "Avatar",
+    "role": "Rol",
+    "status": "Durum",
+    "createdAt": "Oluşturulma Tarihi",
+    "updatedAt": "Güncellenme Tarihi"
+  },
+  
+  "pagination": {
+    "page": "Sayfa",
+    "of": "/",
+    "showing": "Gösteriliyor",
+    "to": "-",
+    "items": "öğe",
+    "perPage": "Sayfa başına"
+  }
+}
