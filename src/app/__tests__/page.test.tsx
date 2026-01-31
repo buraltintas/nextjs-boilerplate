@@ -42,7 +42,7 @@ describe('HomePage', () => {
     });
 
     it('renders status indicators', () => {
-      expect(screen.getByText(/Next.js 15.2/i)).toBeInTheDocument();
+      expect(screen.getByText(/Next.js 15.3/i)).toBeInTheDocument();
       
       // TypeScript birden fazla yerde var (status bar + stats), getAllByText kullan
       const typescriptTexts = screen.getAllByText(/TypeScript/i);
