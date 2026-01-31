@@ -8,9 +8,8 @@ import '@/styles/globals.scss';
  * Root Layout
  * 
  * Main layout for the entire application with:
- * - Global error boundary (client-side)
- * - Bootstrap orchestration (client-side)
  * - React Query provider
+ * - Client-side providers (error boundary, bootstrap)
  */
 
 export const metadata: Metadata = {
