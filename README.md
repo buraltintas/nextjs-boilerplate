@@ -9,7 +9,7 @@
 
 ## 🚀 Features
 
-- ⚡ **Next.js 15.2** - App Router, Server Components, SSR
+- ⚡ **Next.js 15.3** - App Router, Server Components, SSR
 - 🔷 **TypeScript** - Full type safety
 - 🏗️ **Clean Architecture** - Domain-driven design, BFF pattern
 - 🔄 **State Management** - React Query (server) + Zustand (client)
