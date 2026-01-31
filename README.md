@@ -2,14 +2,14 @@
 
 ⚡ Enterprise-grade Next.js starter with production-ready features and best practices built-in.
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.2.0-black)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.0.0-blue)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-blue)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ## 🚀 Features
 
-- ⚡ **Next.js 16** - App Router, Server Components, SSR
+- ⚡ **Next.js 15.2** - App Router, Server Components, SSR
 - 🔷 **TypeScript** - Full type safety
 - 🏗️ **Clean Architecture** - Domain-driven design, BFF pattern
 - 🔄 **State Management** - React Query (server) + Zustand (client)
@@ -90,7 +90,7 @@ npm run type-check      # TypeScript checks
 ## 🛠️ Tech Stack
 
 ### Core
-- **Next.js 16.1.6** - React framework
+- **Next.js 15.2.0** - React framework
 - **React 19.0.0** - UI library
 - **TypeScript 5.7.2** - Type safety
 

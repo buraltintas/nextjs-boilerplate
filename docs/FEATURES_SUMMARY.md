@@ -103,7 +103,7 @@
 - **Version**: Jest 30.2.0, RTL 16.3.2
 - **Location**: `jest.config.js`, `jest.setup.ts`
 - **Features**:
-  - Configured for Next.js 16
+  - Configured for Next.js 15
   - Path aliases support
   - JSDOM environment
   - Coverage reporting
