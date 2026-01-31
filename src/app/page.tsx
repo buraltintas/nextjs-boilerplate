@@ -46,7 +46,7 @@ export default function HomePage() {
           <div className={styles.statusBar}>
             <div className={styles.statusItem}>
               <span className={styles.statusDot}></span>
-              <span>Next.js 16.1.6</span>
+              <span>Next.js 15.2</span>
             </div>
             <div className={styles.statusItem}>
               <span className={styles.statusDot}></span>
