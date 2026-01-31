@@ -16,7 +16,7 @@ export function useQueryParams() {
     (key: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(key, value);
-      router.push(`${pathname}?${params.toString()}`);
+      router.push(`${pathname}?${params.toString()}` as any);
     },
     [pathname, router, searchParams]
   );
@@ -25,7 +25,7 @@ export function useQueryParams() {
     (key: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.delete(key);
-      router.push(`${pathname}?${params.toString()}`);
+      router.push(`${pathname}?${params.toString()}` as any);
     },
     [pathname, router, searchParams]
   );
@@ -42,7 +42,7 @@ export function useQueryParams() {
         }
       });
       
-      router.push(`${pathname}?${params.toString()}`);
+      router.push(`${pathname}?${params.toString()}` as any);
     },
     [pathname, router, searchParams]
   );

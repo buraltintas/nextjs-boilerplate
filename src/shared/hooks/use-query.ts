@@ -59,9 +59,6 @@ export function useBFFMutation<TData, TVariables>(
         // Invalidate auth queries
         queryClient.invalidateQueries({ queryKey: ['auth'] });
       }
-      
-      // Call user-provided onError
-      options?.onError?.(error, null as any, undefined);
     },
     ...options,
   });

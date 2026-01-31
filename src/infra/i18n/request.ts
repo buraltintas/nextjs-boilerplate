@@ -9,12 +9,16 @@ import { config } from '@/infra/config';
  */
 
 export default getRequestConfig(async ({ locale }) => {
+  // Locale from params - ensure it's a string
+  const currentLocale = locale || config.i18n.defaultLocale;
+  
   // Validate that the incoming `locale` parameter is valid
-  if (!config.i18n.locales.includes(locale as any)) {
+  if (!config.i18n.locales.includes(currentLocale as any)) {
     notFound();
   }
 
   return {
-    messages: (await import(`./locales/${locale}.json`)).default,
+    locale: currentLocale,
+    messages: (await import(`./locales/${currentLocale}.json`)).default,
   };
 });

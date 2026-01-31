@@ -12,11 +12,11 @@
  */
 
 import type {
-  LogLevel,
   EventProperties,
   UserIdentity,
   ObservabilityProvider,
 } from '../types';
+import { LogLevel } from '../types';
 
 /**
  * Example: Sentry + Mixpanel Provider

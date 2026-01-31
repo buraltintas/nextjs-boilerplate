@@ -45,7 +45,7 @@ class BFFClient {
     if (typeof window === 'undefined') {
       try {
         const { cookies } = await import('next/headers');
-        const cookieStore = cookies();
+        const cookieStore = await cookies(); // Next.js 15+ returns Promise
         const sessionCookie = cookieStore.get(config.session.cookieName);
         return sessionCookie?.value;
       } catch {

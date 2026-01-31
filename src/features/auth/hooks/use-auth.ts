@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useBFFQuery, useBFFMutation } from '@/shared/hooks/use-query';
 import { queryKeys } from '@/shared/constants/query-keys';
 import {
@@ -30,28 +31,29 @@ export function useSession() {
     (state: any) => state.updateSessionCheck
   );
 
-  return useBFFQuery(
+  const query = useBFFQuery(
     queryKeys.auth.session(),
-    async () => {
-      // Mock: Check if token exists in cookie (via server action later)
-      // For now, return dummy user
-      const response = await api.auth.getCurrentUser();
-      return response.data;
-    },
+    () => api.auth.getCurrentUser(), // Already returns BFFResponse<User | null>
     {
       retry: false,
       staleTime: 5 * 60 * 1000, // 5 minutes
-      onSuccess: (user: User) => {
-        setUserHint(user);
-        setAuthenticatedHint(true);
-        updateSessionCheck();
-      },
-      onError: () => {
-        setUserHint(null);
-        setAuthenticatedHint(false);
-      },
     }
   );
+
+  // React Query v5: Use useEffect instead of onSuccess
+  useEffect(() => {
+    if (query.data) {
+      const user = query.data; // Already unwrapped by useBFFQuery
+      setUserHint(user);
+      setAuthenticatedHint(true);
+      updateSessionCheck();
+    } else if (query.isError) {
+      setUserHint(null);
+      setAuthenticatedHint(false);
+    }
+  }, [query.data, query.isError, setUserHint, setAuthenticatedHint, updateSessionCheck]);
+
+  return query;
 }
 
 /**
@@ -72,7 +74,7 @@ export function useLogin() {
     (state: any) => state.setAuthenticatedHint
   );
 
-  return useBFFMutation(
+  const mutation = useBFFMutation(
     async (credentials: LoginCredentials) => {
       const response = await api.auth.login(credentials);
       
@@ -82,18 +84,19 @@ export function useLogin() {
       }
       
       return response;
-    },
-    {
-      onSuccess: (response: any) => {
-        // Update auth hints
-        setUserHint(response.data.user);
-        setAuthenticatedHint(true);
-
-        // Invalidate and refetch session
-        queryClient.invalidateQueries({ queryKey: queryKeys.auth.session() });
-      },
     }
   );
+
+  // React Query v5: Use useEffect instead of onSuccess
+  useEffect(() => {
+    if (mutation.data) {
+      setUserHint(mutation.data.data.user);
+      setAuthenticatedHint(true);
+      queryClient.invalidateQueries({ queryKey: queryKeys.auth.session() });
+    }
+  }, [mutation.data, setUserHint, setAuthenticatedHint, queryClient]);
+
+  return mutation;
 }
 
 /**
@@ -104,25 +107,26 @@ export function useLogout() {
   const queryClient = useQueryClient();
   const clearAuth = useAuthStore((state: any) => state.clearAuth);
 
-  return useBFFMutation(
+  const mutation = useBFFMutation(
     async () => {
       await api.auth.logout();
       
       // Mock: Clear cookie
       document.cookie = 'session=; path=/; max-age=0';
       
-      return { data: { success: true }, error: null };
-    },
-    {
-      onSuccess: () => {
-        // Clear auth hints
-        clearAuth();
-
-        // Clear all queries
-        queryClient.clear();
-      },
+      return { data: { success: true }, status: 200, headers: new Headers() };
     }
   );
+
+  // React Query v5: Use useEffect instead of onSuccess
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      clearAuth();
+      queryClient.clear();
+    }
+  }, [mutation.isSuccess, clearAuth, queryClient]);
+
+  return mutation;
 }
 
 /**
@@ -136,28 +140,28 @@ export function useRegister() {
     (state: any) => state.setAuthenticatedHint
   );
 
-  return useBFFMutation(
+  const mutation = useBFFMutation(
     async (data: RegisterData) => {
       const response = await api.auth.register(data);
       
-      // Mock: Store token in cookie
-      if (response.data) {
-        document.cookie = `session=${response.data.token}; path=/; max-age=86400; samesite=lax`;
-      }
+      // Mock: Store token - User response doesn't have token, create one
+      const token = 'mock-jwt-token-' + Date.now();
+      document.cookie = `session=${token}; path=/; max-age=86400; samesite=lax`;
       
       return response;
-    },
-    {
-      onSuccess: (response: any) => {
-        // Update auth hints
-        setUserHint(response.data.user);
-        setAuthenticatedHint(true);
-
-        // Invalidate and refetch session
-        queryClient.invalidateQueries({ queryKey: queryKeys.auth.session() });
-      },
     }
   );
+
+  // React Query v5: Use useEffect instead of onSuccess
+  useEffect(() => {
+    if (mutation.data) {
+      setUserHint(mutation.data.data);
+      setAuthenticatedHint(true);
+      queryClient.invalidateQueries({ queryKey: queryKeys.auth.session() });
+    }
+  }, [mutation.data, setUserHint, setAuthenticatedHint, queryClient]);
+
+  return mutation;
 }
 
 /**

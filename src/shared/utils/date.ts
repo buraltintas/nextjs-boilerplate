@@ -415,7 +415,8 @@ export function formatDuration(
     ? duration 
     : Duration.fromObject(duration);
 
-  return dur.toHuman({ locale: options?.locale || DEFAULT_LOCALE });
+  // Luxon Duration.toHuman() doesn't support locale parameter directly
+  return dur.toHuman();
 }
 
 // ============================================

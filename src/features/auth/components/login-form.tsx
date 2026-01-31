@@ -29,7 +29,7 @@ export function LoginForm({ onSuccess, redirectTo = '/dashboard' }: LoginFormPro
       if (onSuccess) {
         onSuccess();
       } else {
-        router.push(redirectTo);
+        router.push(redirectTo as any); // Type assertion for query param
       }
     } catch (error) {
       // Error is handled by the mutation

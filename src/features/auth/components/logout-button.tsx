@@ -25,12 +25,12 @@ export function LogoutButton({
 
   const handleLogout = async () => {
     try {
-      await logoutMutation.mutateAsync();
+      await logoutMutation.mutateAsync(undefined); // Provide undefined for void mutation
       
       if (onSuccess) {
         onSuccess();
       } else {
-        router.push(redirectTo);
+        router.push(redirectTo as any);
       }
     } catch (error) {
       console.error('Logout failed:', error);

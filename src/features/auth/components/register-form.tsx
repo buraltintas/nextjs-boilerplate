@@ -39,7 +39,7 @@ export function RegisterForm({
       if (onSuccess) {
         onSuccess();
       } else {
-        router.push(redirectTo);
+        router.push(redirectTo as any);
       }
     } catch (error) {
       console.error('Registration failed:', error);

@@ -5,6 +5,8 @@
  * MOCK MODE: Returns dummy data for development without backend
  */
 
+import type { BFFResponse } from '../types';
+
 export interface LoginCredentials {
   email: string;
   password: string;
@@ -41,7 +43,7 @@ export const authApi = {
    */
   login: async (
     credentials: LoginCredentials
-  ): Promise<{ data: LoginResponse | null; error: any }> => {
+  ): Promise<BFFResponse<LoginResponse>> => {
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -57,7 +59,8 @@ export const authApi = {
         token: 'mock-jwt-token-' + Date.now(),
         expiresIn: 86400, // 24 hours
       },
-      error: null,
+      status: 200,
+      headers: new Headers(),
     };
   },
 
@@ -66,7 +69,7 @@ export const authApi = {
    */
   register: async (
     data: RegisterData
-  ): Promise<{ data: User | null; error: any }> => {
+  ): Promise<BFFResponse<User>> => {
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -78,27 +81,29 @@ export const authApi = {
         email: data.email,
         role: 'user',
       },
-      error: null,
+      status: 201,
+      headers: new Headers(),
     };
   },
 
   /**
    * MOCK: Logout always succeeds
    */
-  logout: async (): Promise<{ data: void | null; error: any }> => {
+  logout: async (): Promise<BFFResponse<void>> => {
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     return {
-      data: null,
-      error: null,
+      data: undefined,
+      status: 200,
+      headers: new Headers(),
     };
   },
 
   /**
    * MOCK: Get current user session
    */
-  getSession: async (): Promise<{ data: User | null; error: any }> => {
+  getSession: async (): Promise<BFFResponse<User | null>> => {
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 200));
 
@@ -110,24 +115,22 @@ export const authApi = {
         email: 'john@example.com',
         role: 'admin',
       },
-      error: null,
+      status: 200,
+      headers: new Headers(),
     };
   },
 
   /**
    * MOCK: Get current user (alias)
    */
-  getCurrentUser: async (): Promise<{ data: User | null; error: any }> => {
+  getCurrentUser: async (): Promise<BFFResponse<User | null>> => {
     return authApi.getSession();
   },
 
   /**
    * MOCK: Refresh token
    */
-  refreshToken: async (): Promise<{
-    data: RefreshTokenResponse | null;
-    error: any;
-  }> => {
+  refreshToken: async (): Promise<BFFResponse<RefreshTokenResponse>> => {
     await new Promise((resolve) => setTimeout(resolve, 200));
 
     return {
@@ -135,7 +138,8 @@ export const authApi = {
         token: 'mock-jwt-token-' + Date.now(),
         expiresIn: 86400,
       },
-      error: null,
+      status: 200,
+      headers: new Headers(),
     };
   },
 
@@ -144,12 +148,13 @@ export const authApi = {
    */
   requestPasswordReset: async (
     email: string
-  ): Promise<{ data: void | null; error: any }> => {
+  ): Promise<BFFResponse<void>> => {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     return {
-      data: null,
-      error: null,
+      data: undefined,
+      status: 200,
+      headers: new Headers(),
     };
   },
 
@@ -159,12 +164,13 @@ export const authApi = {
   resetPassword: async (
     token: string,
     newPassword: string
-  ): Promise<{ data: void | null; error: any }> => {
+  ): Promise<BFFResponse<void>> => {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     return {
-      data: null,
-      error: null,
+      data: undefined,
+      status: 200,
+      headers: new Headers(),
     };
   },
 };

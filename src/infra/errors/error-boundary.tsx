@@ -49,10 +49,21 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     const normalizedError = normalizeError(error);
 
-    // Capture error for observability
-    captureError(normalizedError, {
+    // Capture error for observability - convert AppError to Error
+    const errorForCapture = new Error(normalizedError.message);
+    errorForCapture.name = normalizedError.code;
+    if (normalizedError.originalError?.stack) {
+      errorForCapture.stack = normalizedError.originalError.stack;
+    }
+    
+    captureError(errorForCapture, {
+      ...normalizedError.metadata,
       componentStack: errorInfo.componentStack,
       level: this.props.level || 'route',
+      severity: normalizedError.severity,
+      recoverable: normalizedError.recoverable,
+      category: normalizedError.category,
+      timestamp: normalizedError.timestamp,
     });
 
     // Call custom error handler if provided
