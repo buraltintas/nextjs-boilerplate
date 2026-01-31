@@ -1,5 +1,4 @@
 import { ReactQueryProvider } from '@/shared/providers/react-query-provider';
-import { ClientProviders } from './client-providers';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import '@/styles/globals.scss';
@@ -7,9 +6,8 @@ import '@/styles/globals.scss';
 /**
  * Root Layout
  * 
- * Main layout for the entire application with:
- * - React Query provider
- * - Client-side providers (error boundary, bootstrap)
+ * Minimal root layout for SSR compatibility.
+ * Client-side features (ErrorBoundary, Bootstrap) are used in page-level layouts.
  */
 
 export const metadata: Metadata = {
@@ -22,9 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <ReactQueryProvider>
-          <ClientProviders>
-            {children}
-          </ClientProviders>
+          {children}
         </ReactQueryProvider>
       </body>
     </html>
