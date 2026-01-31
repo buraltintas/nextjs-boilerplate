@@ -1,351 +1,182 @@
-# Next.js Production-Ready Boilerplate
+# Next.js Production Boilerplate
 
-A modern, scalable, and production-ready Next.js boilerplate with best practices and a clean architecture.
+⚡ Enterprise-grade Next.js starter with production-ready features and best practices built-in.
+
+[![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.0.0-blue)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-blue)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ## 🚀 Features
 
-### Core Stack
+- ⚡ **Next.js 16** - App Router, Server Components, SSR
+- 🔷 **TypeScript** - Full type safety
+- 🏗️ **Clean Architecture** - Domain-driven design, BFF pattern
+- 🔄 **State Management** - React Query (server) + Zustand (client)
+- 🔐 **Auth Flow** - Cookie-based session management
+- 🚩 **Feature Flags** - Environment-aware toggles
+- ⚠️ **Error Handling** - Global boundaries & normalized errors
+- 📊 **Observability** - Provider-agnostic analytics/logging
+- 🌐 **Network Strategy** - Retry logic, degraded mode
+- 🔴 **Real-Time** - WebSocket/Socket.IO infrastructure
+- 🧪 **Testing** - Jest + React Testing Library
+- 🎨 **Modern SCSS** - Path aliases, auto-inject variables
+- 📅 **Luxon** - Date/time utilities
+- 🔢 **Versioning** - Cache busting & compatibility checks
 
-- ⚡ **Next.js 16.1.6** - Latest stable version with App Router
-- ⚛️ **React 19.0.0** - Latest React with Server Components
-- 🔷 **TypeScript** - Strict mode for type safety
-- 🎨 **SCSS** - Modern CSS with variables, mixins, and modules
-- 📦 **Webpack** - Stable bundler (Turbopack disabled for production stability)
-
-### Architecture
-
-- 🏗️ **Domain-Driven Design** - Clean separation of concerns
-- 🔌 **BFF Pattern** - Backend-for-Frontend layer
-- 📁 **Feature-Based Structure** - Modular and scalable
-- 🎯 **Route Groups** - Organized routing with `(auth)`, `(protected)`, `(public)`
-
-### State Management
-
-- 🔄 **React Query (TanStack Query)** - Server state management with SSR
-- 🗃️ **Zustand** - Client state with localStorage persistence
-- 💾 **Persistent Stores** - Auth hints, preferences, and UI state
-
-### Authentication & Routing
-
-- 🔐 **Mock Auth System** - Ready-to-replace dummy authentication
-- 🍪 **Cookie-Based Sessions** - HttpOnly cookies for security
-- 🛡️ **Protected Routes** - Server-side auth checks
-- 🔄 **Smart Redirects** - Post-login redirect to intended destination
-- 🚪 **Auth Flow** - Login → Remember destination → Redirect back
-
-### Development Experience
-
-- 🎨 **Modern SCSS** - `@use` syntax, path aliases (`@/styles`)
-- 📝 **Path Aliases** - Clean imports with `@/app`, `@/bff`, `@/features`, etc.
-- 🔍 **Type Safety** - Strict TypeScript everywhere
-- 🧩 **Reusable Components** - Shared UI component library
-- 🪝 **Custom Hooks** - Reusable logic patterns
-
-### SEO & Performance
-
-- 🔍 **SEO Optimized** - Metadata API, OpenGraph tags
-- 🗺️ **Sitemap & Robots.txt** - Automatic generation
-- 📊 **Structured Data** - JSON-LD support
-- ⚡ **SSR Ready** - Server-side rendering by default
-
-## 📦 Project Structure
-
-```
-nextjs-boilerplate/
-├── src/
-│   ├── app/                    # Next.js App Router
-│   │   ├── (auth)/            # Auth routes (login, register)
-│   │   │   ├── login/
-│   │   │   └── register/
-│   │   ├── (protected)/       # Protected routes (require auth)
-│   │   │   ├── dashboard/
-│   │   │   └── users/
-│   │   ├── layout.tsx         # Root layout
-│   │   ├── page.tsx           # Home page
-│   │   └── not-found.tsx      # 404 page
-│   │
-│   ├── bff/                   # Backend-for-Frontend layer
-│   │   ├── client.ts          # BFF fetch wrapper
-│   │   ├── modules/           # API modules
-│   │   │   ├── auth.ts        # Auth API (mock)
-│   │   │   └── users.ts       # Users API
-│   │   ├── errors.ts          # Custom errors
-│   │   └── types.ts           # BFF types
-│   │
-│   ├── features/              # Feature modules
-│   │   ├── auth/              # Auth feature
-│   │   │   ├── components/    # Login/Register forms
-│   │   │   ├── hooks/         # Auth hooks
-│   │   │   └── lib/           # Server-side auth utils
-│   │   └── users/             # Users feature
-│   │
-│   ├── shared/                # Shared code
-│   │   ├── components/        # Reusable UI components
-│   │   ├── hooks/             # Custom hooks
-│   │   ├── stores/            # Zustand stores (persisted)
-│   │   ├── providers/         # React providers
-│   │   └── utils/             # Utility functions
-│   │
-│   ├── infra/                 # Infrastructure
-│   │   ├── config/            # App configuration
-│   │   ├── seo/               # SEO utilities
-│   │   └── i18n/              # i18n setup (legacy)
-│   │
-│   ├── styles/                # Global SCSS
-│   │   ├── globals.scss       # Global styles
-│   │   ├── _variables.scss    # SCSS variables
-│   │   └── _mixins.scss       # SCSS mixins
-│   │
-│   └── middleware.ts          # Next.js middleware
-│
-├── .env                       # Environment variables
-├── next.config.js             # Next.js configuration
-├── tsconfig.json              # TypeScript configuration
-└── package.json               # Dependencies
-```
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Node.js >= 20.9.0 (use `nvm use 24` for latest)
-- npm or yarn
-
-### Installation
-
-1. **Clone and install dependencies:**
+## 📦 Quick Start
 
 ```bash
+# 1. Install dependencies
 npm install
+
+# 2. Create .env file
+cp .env.example .env
+
+# 3. Run development server
+npm run dev
+
+# 4. Open browser
+http://localhost:3000
 ```
 
-2. **Create `.env` file:**
+## 🧪 Testing
 
 ```bash
-# App Configuration
+# Run all tests
+npm test
+
+# Watch mode
+npm run test:watch
+
+# Coverage report
+npm run test:coverage
+```
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (auth)/            # Auth routes (login, register)
+│   ├── (protected)/       # Protected routes (dashboard, users)
+│   └── page.tsx           # Home page
+├── bff/                   # Backend-for-Frontend layer
+├── features/              # Feature modules (auth, users)
+├── shared/                # Shared components, hooks, stores
+├── infra/                 # Infrastructure (config, observability)
+└── styles/                # Global SCSS
+```
+
+## 🔧 Scripts
+
+```bash
+npm run dev              # Start dev server
+npm run build           # Build for production
+npm start               # Start production server
+npm test                # Run tests
+npm run lint            # Run ESLint
+npm run type-check      # TypeScript checks
+```
+
+## 📚 Documentation
+
+- **[Quick Start Guide](./docs/QUICKSTART.md)** - Detailed setup instructions
+- **[Architecture](./docs/ARCHITECTURE.md)** - System design & patterns
+- **[Features Summary](./docs/FEATURES_SUMMARY.md)** - All features overview
+- **[File Structure](./docs/FILE_STRUCTURE.md)** - Complete directory guide
+- **[Testing Guide](./docs/TESTING.md)** - Testing best practices
+
+## 🛠️ Tech Stack
+
+### Core
+- **Next.js 16.1.6** - React framework
+- **React 19.0.0** - UI library
+- **TypeScript 5.7.2** - Type safety
+
+### State & Data
+- **@tanstack/react-query 5.90.20** - Server state management
+- **Zustand 5.0.10** - Client state with persistence
+
+### Styling
+- **SASS 1.97.3** - CSS preprocessor with modern syntax
+
+### Real-Time
+- **Socket.IO Client 4.8.3** - WebSocket communication
+
+### Date/Time
+- **Luxon 3.5.0** - Modern date library
+
+### Testing
+- **Jest 30.2.0** - Test runner
+- **React Testing Library 16.3.2** - Component testing
+
+## 🔐 Authentication
+
+Mock authentication is included for development:
+- Any email/password combination works
+- Session stored in HttpOnly cookie
+- Protected routes redirect to login
+- Post-login redirect to intended destination
+
+**To connect real backend:** Update `src/bff/modules/auth.ts`
+
+## 🌐 Environment Variables
+
+```bash
+# App
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 # Backend API (mock for now)
 BACKEND_API_URL=http://localhost:4000/api
 
-# Session Configuration
+# Session
 SESSION_COOKIE_NAME=session
-SESSION_SECRET=your-secret-key-here-change-in-production
+SESSION_SECRET=your-secret-key-change-in-production
+
+# Feature Flags (optional)
+NEXT_PUBLIC_FF_*=true/false
+
+# Observability (optional)
+NEXT_PUBLIC_OBSERVABILITY_ENABLED=true
+OBSERVABILITY_PROVIDER=console
+
+# Real-Time (optional)
+NEXT_PUBLIC_SOCKET_URL=http://localhost:4000
 ```
 
-3. **Run development server:**
+## 🚀 Deployment
 
-```bash
-npm run dev
-```
-
-4. **Open browser:**
-
-```
-http://localhost:3000
-```
-
-## 🔐 Authentication Flow
-
-The boilerplate includes a complete mock authentication system:
-
-### Features
-
-- ✅ Login with any email/password (mock)
-- ✅ Register with any details (mock)
-- ✅ Cookie-based session management
-- ✅ Protected routes with server-side checks
-- ✅ Post-login redirect to intended destination
-- ✅ Logout clears session and redirects to home
-
-### Flow Example
-
-1. **Access protected route without auth:**
-
-```
-GET /dashboard → Redirect to /login?redirectTo=%2Fdashboard
-```
-
-2. **Login:**
-
-```
-Submit login form → Mock token saved to cookie → Redirect to /dashboard
-```
-
-3. **Logout:**
-
-```
-Click logout → Clear cookie → Redirect to /
-```
-
-### Replacing Mock Auth
-
-To connect to a real backend:
-
-1. Update `src/bff/modules/auth.ts` to call real API
-2. Update `src/features/auth/lib/server-auth.ts` for real session validation
-3. Configure `BACKEND_API_URL` in `.env`
-
-## 🗃️ State Management
-
-### React Query (Server State)
-
-```typescript
-import { useBFFQuery } from '@/shared/hooks/use-query';
-
-// Fetch data with SSR support
-const { data, isLoading } = useBFFQuery(queryKeys.users.list(), () =>
-  api.users.getAll()
-);
-```
-
-### Zustand (Client State)
-
-```typescript
-import { useAuthStore } from '@/shared/stores';
-
-// Persisted to localStorage
-const { userHint, setUserHint } = useAuthStore();
-```
-
-### Available Stores
-
-- **Auth Store** - User hints, auth status (persisted)
-- **Preferences Store** - User preferences, language (persisted)
-- **UI Store** - Sidebar, theme, modals (partially persisted)
-
-## 🎨 Styling
-
-### SCSS with Modern Syntax
-
-```scss
-// Automatic imports (via prependData)
-.my-component {
-  color: $color-primary;
-
-  @include md {
-    padding: $spacing-lg;
-  }
-}
-```
-
-### Path Aliases
-
-```scss
-// Import from anywhere
-@use '@/styles/variables' as *;
-@use '@/styles/mixins' as *;
-```
-
-## 📝 Scripts
-
-```bash
-# Development
-npm run dev              # Start dev server (Webpack)
-
-# Production
-npm run build           # Build for production
-npm start               # Start production server
-
-# Code Quality
-npm run lint            # Run ESLint
-npm run type-check      # Run TypeScript checks
-```
-
-## 🔧 Configuration
-
-### Path Aliases (tsconfig.json)
-
-```json
-{
-  "@/app/*": ["./src/app/*"],
-  "@/bff/*": ["./src/bff/*"],
-  "@/features/*": ["./src/features/*"],
-  "@/shared/*": ["./src/shared/*"],
-  "@/infra/*": ["./src/infra/*"],
-  "@/styles/*": ["./src/styles/*"]
-}
-```
-
-### SCSS Auto-imports (next.config.js)
-
-```javascript
-sassOptions: {
-  prependData: `@use "@/styles/_variables.scss" as *; @use "@/styles/_mixins.scss" as *;`;
-}
-```
-
-## 📚 Documentation
-
-- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - Detailed architecture overview
-- **[FILE_STRUCTURE.md](./FILE_STRUCTURE.md)** - Complete file structure guide
-- **[QUICKSTART.md](./QUICKSTART.md)** - Step-by-step quick start
-
-## 🛠️ Tech Stack
-
-### Core
-
-- Next.js 16.1.6
-- React 19.0.0
-- TypeScript 5.7.2
-
-### Data & State
-
-- @tanstack/react-query 5.90.20
-- zustand 5.0.10
-
-### Styling
-
-- SASS 1.97.3
-
-### Utils
-
-- clsx 2.1.1
-
-## 🚀 Production Deployment
-
-1. **Build the project:**
+### Vercel (Recommended)
 
 ```bash
 npm run build
+# Deploy to Vercel
 ```
 
-2. **Set environment variables:**
+### Docker
 
 ```bash
-NEXT_PUBLIC_APP_URL=https://yourdomain.com
-BACKEND_API_URL=https://api.yourdomain.com
-SESSION_SECRET=strong-random-secret
-NODE_ENV=production
+# Build image
+docker build -t nextjs-boilerplate .
+
+# Run container
+docker run -p 3000:3000 nextjs-boilerplate
 ```
-
-3. **Deploy to Vercel, Netlify, or your platform**
-
-## 🔄 Migration Notes
-
-### From Previous Version
-
-If upgrading from a locale-based version:
-
-- ✅ `[locale]` routes removed - now flat structure
-- ✅ No URL prefixes (`/en`, `/tr`) - clean URLs
-- ✅ `next-intl` removed - simplified architecture
-- ✅ Turbopack disabled - using Webpack for stability
 
 ## 📄 License
 
-MIT License - feel free to use this boilerplate for your projects!
+MIT License - feel free to use for personal or commercial projects.
 
 ## 🤝 Contributing
 
-Contributions are welcome! This is a production-ready boilerplate designed for real-world projects.
+Contributions are welcome! Please read our contributing guidelines.
 
-## 🎯 Next Steps
+## 💬 Support
 
-1. Replace mock auth with real backend
-2. Add more features to your app
-3. Customize styling and branding
-4. Deploy to production!
+- 📖 [Documentation](./docs/)
+- 🐛 [Report Issues](https://github.com/buraltintas/nextjs-boilerplate/issues)
+- 💡 [Feature Requests](https://github.com/buraltintas/nextjs-boilerplate/issues)
 
 ---
 

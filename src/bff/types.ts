@@ -2,9 +2,12 @@
  * Type definitions for BFF layer
  */
 
+import type { RetryConfig } from '@/infra/network';
+
 export interface BFFRequestInit extends RequestInit {
   timeout?: number;
   skipAuth?: boolean;
+  retry?: RetryConfig;
 }
 
 export interface BFFResponse<T = unknown> {

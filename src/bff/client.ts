@@ -8,6 +8,14 @@ import {
   ValidationError,
 } from '@/bff/errors';
 import type { BFFRequestInit, BFFResponse } from '@/bff/types';
+import {
+  defaultNetworkStrategy,
+  isRetryableError,
+  calculateRetryDelay,
+  wait,
+} from '@/infra/network';
+import { degradedModeManager } from '@/infra/network';
+import { logWarn, logError } from '@/infra/observability';
 
 /**
  * Core BFF Fetch Client
@@ -157,7 +165,7 @@ class BFFClient {
   }
 
   /**
-   * Core request method
+   * Core request method with retry logic
    */
   async request<T = unknown>(
     endpoint: string,
@@ -166,6 +174,7 @@ class BFFClient {
     const {
       timeout = this.defaultTimeout,
       skipAuth = false,
+      retry = defaultNetworkStrategy.retry,
       headers,
       ...fetchOptions
     } = options;
@@ -173,29 +182,62 @@ class BFFClient {
     const url = this.buildURL(endpoint);
     const requestHeaders = await this.buildHeaders(headers, skipAuth);
 
-    try {
-      const response = await this.fetchWithTimeout(
-        url,
-        {
-          ...fetchOptions,
-          headers: requestHeaders,
-        },
-        timeout
-      );
+    let lastError: Error | null = null;
+    const maxAttempts = retry.enabled ? retry.maxAttempts : 1;
 
-      return await this.handleResponse<T>(response);
-    } catch (error) {
-      // Re-throw known errors
-      if (error instanceof BFFError) {
-        throw error;
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        const response = await this.fetchWithTimeout(
+          url,
+          {
+            ...fetchOptions,
+            headers: requestHeaders,
+          },
+          timeout
+        );
+
+        const result = await this.handleResponse<T>(response);
+        
+        // Request succeeded - record success
+        degradedModeManager.recordSuccess();
+        
+        return result;
+      } catch (error) {
+        lastError = error as Error;
+
+        // Check if error is retryable
+        const statusCode = (error as BFFError).statusCode || 0;
+        const shouldRetry = attempt < maxAttempts && isRetryableError(statusCode, retry);
+
+        if (shouldRetry) {
+          const delay = calculateRetryDelay(attempt, retry);
+          logWarn(`[BFF] Retrying request (attempt ${attempt}/${maxAttempts})`, {
+            endpoint,
+            delay,
+            error: (error as Error).message,
+          });
+          await wait(delay);
+          continue;
+        }
+
+        // Not retryable or max attempts reached
+        degradedModeManager.recordFailure();
+        
+        // Re-throw known errors
+        if (error instanceof BFFError) {
+          throw error;
+        }
+        
+        // Wrap unknown errors
+        throw new BFFError(
+          error instanceof Error ? error.message : 'Unknown error occurred',
+          500
+        );
       }
-      
-      // Wrap unknown errors
-      throw new BFFError(
-        error instanceof Error ? error.message : 'Unknown error occurred',
-        500
-      );
     }
+
+    // Should never reach here, but TypeScript needs it
+    throw lastError || new BFFError('Request failed after retries', 500);
   }
 
   /**

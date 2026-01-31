@@ -349,6 +349,9 @@ npm start
 - **[README.md](./README.md)** - Full feature list and overview
 - **[ARCHITECTURE.md](./ARCHITECTURE.md)** - Architecture deep dive
 - **[FILE_STRUCTURE.md](./FILE_STRUCTURE.md)** - Complete file structure
+- **[TESTING.md](./TESTING.md)** - Testing guide with Jest & RTL
+- **[FEATURES_SUMMARY.md](./FEATURES_SUMMARY.md)** - All features overview
+- **[Production Features Examples](./src/PRODUCTION_FEATURES_EXAMPLES.tsx)** - Code examples
 
 ## 💡 Tips
 
@@ -359,6 +362,7 @@ npm start
 5. **Auth:** All credentials work in mock mode
 6. **Zustand:** State persists across browser refreshes
 7. **React Query:** Data cached automatically
+8. **Testing:** Run `npm test` to verify your changes
 
 ---
 

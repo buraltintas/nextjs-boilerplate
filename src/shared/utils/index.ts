@@ -2,17 +2,8 @@
  * Utility Functions
  */
 
-/**
- * Format date to locale string
- */
-export function formatDate(date: Date | string, locale: string = 'tr-TR'): string {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
-  return dateObj.toLocaleDateString(locale, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
+// Export all date utilities from date.ts
+export * from './date';
 
 /**
  * Format currency
